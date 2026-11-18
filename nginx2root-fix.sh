@@ -98,11 +98,9 @@ if [[ -z "$CHANNEL" && $MIGRATE -eq 1 ]]; then
     CHANNEL=stable
     [[ ! -d /home/forge ]] || CHANNEL=mainline
 elif [[ -z "$CHANNEL" ]]; then
-    case "$PKGVER" in
-        1.31.*) CHANNEL=mainline ;;
-        1.30.*) CHANNEL=stable ;;
-        *) fail "cannot determine nginx.org channel from version $PKGVER" ;;
-    esac
+    MINOR=$(sed -n 's/^1\.\([0-9]*\)\..*/\1/p' <<<"$PKGVER")
+    [[ -n "$MINOR" ]] || fail "cannot determine nginx.org channel from version $PKGVER"
+    if (( MINOR % 2 )); then CHANNEL=mainline; else CHANNEL=stable; fi
 fi
 
 case "$CHANNEL" in
