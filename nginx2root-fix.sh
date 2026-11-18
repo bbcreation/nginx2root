@@ -2,7 +2,7 @@
 # NGINX security update - Ubuntu + official nginx.org packages
 set -Eeuo pipefail
 export DEBIAN_FRONTEND=noninteractive
-export NEEDRESTART_MODE=a
+export NEEDRESTART_MODE=l
 
 DPKG_OPTS=(-o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold)
 AUTO_YES=0
@@ -246,7 +246,7 @@ else
     # Dynamic modules depend on the exact nginx version and must be upgraded with it.
     mapfile -t MODULES < <(dpkg-query -W -f='${db:Status-Status} ${Package}\n' |
         awk '$1 == "installed" && $2 ~ /^nginx-module-/ {print $2}')
-    INSTALL=(install -y --only-upgrade "nginx=$REPOVER" "${MODULES[@]}")
+    INSTALL=(install -y --only-upgrade "${DPKG_OPTS[@]}" "nginx=$REPOVER" "${MODULES[@]}")
     ALLOWED='^$'
 fi
 
