@@ -15,10 +15,16 @@ Fixed CVEs: CVE-2026-123634, CVE-2026-123007, CVE-2026-121810, CVE-2026-123633, 
 
 ## Usage
 
+Paste into the server console as root:
+
 ```bash
-curl -fsSLO https://raw.githubusercontent.com/bbcreation/nginx2root/main/nginx2root-fix.sh
-less nginx2root-fix.sh
-sudo bash nginx2root-fix.sh
+curl -fsSL https://raw.githubusercontent.com/bbcreation/nginx2root/main/nginx2root-fix.sh -o /tmp/nginx2root-fix.sh && bash /tmp/nginx2root-fix.sh
+```
+
+Or as a regular user with sudo:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/bbcreation/nginx2root/main/nginx2root-fix.sh -o /tmp/nginx2root-fix.sh && sudo bash /tmp/nginx2root-fix.sh
 ```
 
 On success the last line is:
